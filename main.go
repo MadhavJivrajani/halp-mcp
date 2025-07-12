@@ -33,26 +33,11 @@ func ExecuteHalp(ctx context.Context, ss *mcp.ServerSession, params *mcp.CallToo
 	}, nil
 }
 
-func PromptHalp(_ context.Context, ss *mcp.ServerSession, params *mcp.GetPromptParams) (*mcp.GetPromptResult, error) {
-	return &mcp.GetPromptResult{
-		Description: "Halp message prompt",
-		Messages: []*mcp.PromptMessage{
-			{
-				Role:    "user",
-				Content: &mcp.TextContent{Text: "Send an SOS message with content " + params.Arguments["message"]}},
-		},
-	}, nil
-}
-
 func main() {
 	server := mcp.NewServer("halp-mcp", "v0.0.1", nil)
 	server.AddTools(mcp.NewServerTool("halp", "send halp message", ExecuteHalp, mcp.Input(
 		mcp.Property("message", mcp.Description("the halp message to send")),
 	)))
-	server.AddPrompts(&mcp.ServerPrompt{
-		Prompt:  &mcp.Prompt{Name: "halp"},
-		Handler: PromptHalp,
-	})
 
 	t := mcp.NewLoggingTransport(mcp.NewStdioTransport(), os.Stderr)
 	if err := server.Run(context.Background(), t); err != nil {
