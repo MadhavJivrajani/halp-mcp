@@ -1,4 +1,4 @@
-module halp-controller
+module halp-watch
 
 go 1.24.4
 
