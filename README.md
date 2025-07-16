@@ -1,5 +1,8 @@
 # `halp-mcp`
 
+
+For more context and info, check out the [accompanying post](https://nonmonotonic.dev/posts/halp-mcp/)!
+
 ## MCP Server
 
 The MCP server is implemented at the root of the repo.
